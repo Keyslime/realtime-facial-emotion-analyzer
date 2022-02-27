@@ -108,9 +108,15 @@ class FaceDetectorDlib(FaceDetector):
         # if it is MMOD type rectangle
         if type(dlib_bbox) == dlib.mmod_rectangle:
             dlib_bbox = dlib_bbox.rect
+
         # Top left corner
-        x1, y1 = dlib_bbox.tl_corner().x, dlib_bbox.tl_corner().y
+        # x1, y1 = dlib_bbox.tl_corner().x, dlib_bbox.tl_corner().y
+
+        x1 = max(0, dlib_bbox.left())
+        y1 = max(0, dlib_bbox.top())
+
         width, height = dlib_bbox.width(), dlib_bbox.height()
+
         # Bottom right point
         x2, y2 = x1 + width, y1 + height
 

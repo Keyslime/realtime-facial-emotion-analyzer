@@ -10,7 +10,7 @@ Usage: python video_main"""
 import sys
 import time
 from typing import Dict, List
-
+import os
 import cv2
 import numpy as np
 
@@ -77,8 +77,8 @@ class EmotionAnalysisVideo:
         # switching to webcam
         video_path = 0 if video_path is None else video_path
 
-        if not path_exists(video_path):
-            raise FileNotFoundError
+        # if not path_exists(video_path):
+        #     raise FileNotFoundError
 
         cap, video_writer = None, None
 
@@ -194,6 +194,22 @@ class EmotionAnalysisVideo:
 
 if __name__ == "__main__":
     import os
+    from emotion_analyzer.media_utils import load_image_path
+    from emotion_analyzer.face_detection_dlib import FaceDetectorDlib
+    from emotion_analyzer.emotion_detector import EmotionDetector
+    import cv2
+    
+
+    #img1 = load_image_path("data/sample/6.jpg")
+    #emotion_detector = EmotionDetector(
+    #    model_loc="models",
+    #    face_detection_threshold=0.8,
+    #    face_detector="dlib",
+    #)
+    #emotion, emotion_conf = emotion_detector.detect_facial_emotion(img1)
+    #print(emotion,emotion_conf)
+    
+    #import os
 
     # SAMPLE USAGE
     from emotion_analyzer.media_utils import load_image_path
@@ -204,12 +220,13 @@ if __name__ == "__main__":
         face_detection_threshold=0.0,
     )
 
-    img1 = load_image_path("data/sample/1.jpg")
+    # img1 = load_image_path("data/sample/1.jpg")
     ob.emotion_analysis_video(
-        video_path="data/sample/test3.mp4",
+        # video_path="data/sample/test_video.mp4",
         detection_interval=1,
-        save_output=True,
-        preview=False,
+        save_output=False,
+        preview=True,
         output_path="data/output.mp4",
         resize_scale=0.5,
     )
+    
